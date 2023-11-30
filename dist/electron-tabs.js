@@ -2543,8 +2543,7 @@ class $eda442ba39f881a8$var$TabGroup extends HTMLElement {
             newTabButton: !!this.getAttribute("new-tab-button") === true || false,
             newTabButtonText: this.getAttribute("new-tab-button-text") || "&#65291;",
             sortable: !!this.getAttribute("sortable") === true || false,
-            visibilityThreshold: Number(this.getAttribute("visibility-threshold")) || 0,
-            selectOptions: JSON.parse(this.getAttribute("select-options") || "[]")
+            visibilityThreshold: Number(this.getAttribute("visibility-threshold")) || 0
         };
         this.tabs = [];
         this.newTabId = 0;
@@ -2611,14 +2610,9 @@ class $eda442ba39f881a8$var$TabGroup extends HTMLElement {
         selectContainer.setAttribute("class", $eda442ba39f881a8$var$CLASSNAMES.SELECT);
         rightGroup.appendChild(selectContainer);
         const select = selectContainer.appendChild(document.createElement("select"));
-        const selectOptions = this.options.selectOptions;
-        for(let i in selectOptions){
-            const option = select.appendChild(document.createElement("option"));
-            option.value = selectOptions[i].value;
-            option.innerHTML = selectOptions[i].text;
-        }
-        select.addEventListener("change", (e)=>this.emit("select-changed", e.target.value, this)
+        select.addEventListener("change", (e)=>this.emit("right-select-changed", e.target.value, this)
         , false);
+        this.rightGroupSelect = select;
         const tabgroup = document.createElement("nav");
         tabgroup.setAttribute("class", $eda442ba39f881a8$var$CLASSNAMES.NAV);
         leftGroup.appendChild(tabgroup);
@@ -2669,6 +2663,15 @@ class $eda442ba39f881a8$var$TabGroup extends HTMLElement {
     }
     setDefaultTab(tab) {
         this.options.defaultTab = tab;
+    }
+    setRightGroupSelectOptions(options) {
+        const select = this.rightGroupSelect;
+        select.innerHTML = "";
+        for(let i in options){
+            const option = select.appendChild(document.createElement("option"));
+            option.value = options[i].value;
+            option.innerHTML = options[i].text;
+        }
     }
     addTab(args = this.options.defaultTab) {
         if (typeof args === "function") args = args(this);

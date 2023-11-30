@@ -7,7 +7,6 @@ interface TabGroupOptions {
     sortable: boolean;
     sortableOptions?: Sortable.Options;
     visibilityThreshold: number;
-    selectOptions: any;
 }
 interface TabOptions {
     active?: boolean;
@@ -36,6 +35,7 @@ export class TabGroup extends HTMLElement {
     tabContainer: HTMLDivElement;
     tabs: Array<Tab>;
     viewContainer: HTMLDivElement;
+    rightGroupSelect: HTMLSelectElement;
     constructor();
     emit(type: string, ...args: any[]): void;
     on(type: string, fn: (...detail: any[]) => void): void;
@@ -43,6 +43,10 @@ export class TabGroup extends HTMLElement {
     connectedCallback(): void;
     initSortable(): void;
     setDefaultTab(tab: TabOptions): void;
+    setRightGroupSelectOptions(options: Array<{
+        value: string;
+        text: string;
+    }>): void;
     addTab(args?: TabOptions | ((tabGroup: TabGroup) => TabOptions)): Tab;
     getTab(id: number): Tab;
     getTabByPosition(position: number): Tab;
