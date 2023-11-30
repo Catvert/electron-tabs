@@ -2670,6 +2670,7 @@ class $eda442ba39f881a8$var$TabGroup extends HTMLElement {
         for(let i in options){
             const option = select.appendChild(document.createElement("option"));
             option.value = options[i].value;
+            option.selected = options[i].selected;
             option.innerHTML = options[i].text;
         }
     }

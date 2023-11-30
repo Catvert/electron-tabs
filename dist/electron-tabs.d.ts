@@ -46,6 +46,7 @@ export class TabGroup extends HTMLElement {
     setRightGroupSelectOptions(options: Array<{
         value: string;
         text: string;
+        selected: boolean;
     }>): void;
     addTab(args?: TabOptions | ((tabGroup: TabGroup) => TabOptions)): Tab;
     getTab(id: number): Tab;

@@ -247,13 +247,14 @@ class TabGroup extends HTMLElement {
     this.options.defaultTab = tab;
   }
 
-  setRightGroupSelectOptions(options: Array<{ value: string, text: string }>) {
+  setRightGroupSelectOptions(options: Array<{ value: string, text: string, selected: boolean }>) {
     const select = this.rightGroupSelect;
     select.innerHTML = "";
 
     for (let i in options) {
       const option = select.appendChild(document.createElement("option"));
       option.value = options[i].value;
+      option.selected = options[i].selected;
       option.innerHTML = options[i].text;
     }
   }
