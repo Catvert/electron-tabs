@@ -61,6 +61,7 @@ webview.visible {
 
 .nav.visible {
   display: flex;
+  justify-content: space-between;
 }
 
 .tabs {
