@@ -47,16 +47,22 @@ webview.visible {
 }
 
 .etabs-header {
+    background: var(--tabgroup-background);
+    box-shadow: inset 0 -1px var(--tab-border-color);
     display: flex;
     justify-content: space-between;
 }
 
 .etabs-left-group {
+  background: var(--tabgroup-background);
+  box-shadow: inset 0 -1px var(--tab-border-color);
   display: flex;
   align-items: center;
 }
 
 .etabs-right-group {
+  background: var(--tabgroup-background);
+  box-shadow: inset 0 -1px var(--tab-border-color);
   display: flex;
   align-items: center;
 }
