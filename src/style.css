@@ -46,6 +46,44 @@ webview.visible {
   font-feature-settings: 'liga', 'clig', 'kern';
 }
 
+.etabs-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.etabs-left-group {
+  display: flex;
+  align-items: center;
+}
+
+.etabs-right-group {
+  display: flex;
+  align-items: center;
+}
+
+.etabs-select {
+  display: flex;
+  padding: 5px;
+  border-left: 1px solid var(--tab-border-color);
+}
+
+.etabs-select select {
+    color: var(--button-color);
+    background: var(--button-background);
+    border-radius: var(--button-border-radius);
+    cursor: var(--button-cursor);
+    font-size: var(--button-font-size);
+    display: block;
+    font-family: inherit;
+    border: none;
+    margin: 0;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 1;
+    padding: 1px 0 0 0;
+}
+
 .nav {
   background: var(--tabgroup-background);
   box-shadow: inset 0 -1px var(--tab-border-color);
@@ -61,7 +99,6 @@ webview.visible {
 
 .nav.visible {
   display: flex;
-  justify-content: space-between;
 }
 
 .tabs {

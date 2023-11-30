@@ -14,6 +14,7 @@ interface TabGroupOptions {
   sortable: boolean,
   sortableOptions?: Sortable.Options
   visibilityThreshold: number,
+  selectOptions: any,
 }
 
 interface TabOptions {
@@ -36,6 +37,10 @@ interface Badge {
 
 const CLASSNAMES = {
   ROOT: "etabs",
+  HEADER: "etabs-header",
+  LEFTGROUP: "etabs-left-group",
+  RIGHTGROUP: "etabs-right-group",
+  SELECT: "etabs-select",
   NAV: "nav",
   TABS: "tabs",
   TAB: "tab",
@@ -80,7 +85,8 @@ class TabGroup extends HTMLElement {
       newTabButton: !!this.getAttribute("new-tab-button") === true || false,
       newTabButtonText: this.getAttribute("new-tab-button-text") || "&#65291;",
       sortable: !!this.getAttribute("sortable") === true || false,
-      visibilityThreshold: Number(this.getAttribute("visibility-threshold")) || 0
+      visibilityThreshold: Number(this.getAttribute("visibility-threshold")) || 0,
+      selectOptions: JSON.parse(this.getAttribute("select-options") || "[]"),
     };
 
     this.tabs = [];
@@ -122,9 +128,65 @@ class TabGroup extends HTMLElement {
     const wrapper = document.createElement("div");
     wrapper.setAttribute("class", CLASSNAMES.ROOT);
 
+    const header = document.createElement("div");
+    header.setAttribute("class", CLASSNAMES.HEADER);
+    wrapper.appendChild(header);
+
+    const leftGroup = document.createElement("div");
+    leftGroup.setAttribute("class", CLASSNAMES.LEFTGROUP);
+    header.appendChild(leftGroup);
+
+    const leftButtonContainer = document.createElement("div");
+    leftButtonContainer.setAttribute("class", CLASSNAMES.BUTTONS);
+    leftGroup.appendChild(leftButtonContainer);
+
+    const previousButton = leftButtonContainer.appendChild(document.createElement("button"));
+    previousButton.innerHTML = "&#8617;";
+    previousButton.addEventListener("click", () => {
+      const activeTab = this.getActiveTab();
+      if (activeTab) {
+        activeTab.webview.goBack();
+      }
+    }, false);
+
+    const nextButton = leftButtonContainer.appendChild(document.createElement("button"));
+    nextButton.setAttribute("class", CLASSNAMES.BUTTONS);
+    nextButton.innerHTML = "&#8618;";
+    nextButton.addEventListener("click", () => {
+      const activeTab = this.getActiveTab();
+      if (activeTab) {
+        activeTab.webview.goForward();
+      }
+    }, false);
+
+    const refreshButton = leftButtonContainer.appendChild(document.createElement("button"));
+    refreshButton.innerHTML = "&#8635;";
+    refreshButton.addEventListener("click", () => {
+      const activeTab = this.getActiveTab();
+      if (activeTab) {
+        activeTab.webview.reload();
+      }
+    }, false);
+
+    const rightGroup = document.createElement("div");
+    rightGroup.setAttribute("class", CLASSNAMES.RIGHTGROUP);
+    header.appendChild(rightGroup);
+
+    const selectContainer = document.createElement("div");
+    selectContainer.setAttribute("class", CLASSNAMES.SELECT);
+    rightGroup.appendChild(selectContainer);
+    const select = selectContainer.appendChild(document.createElement("select"));
+    const selectOptions = this.options.selectOptions;
+    for (let i in selectOptions) {
+      const option = select.appendChild(document.createElement("option"));
+      option.value = selectOptions[i].value;
+      option.innerHTML = selectOptions[i].text;
+    }
+    select.addEventListener("change", (e) => this.emit("select-changed", e.target.value, this), false);
+
     const tabgroup = document.createElement("nav");
     tabgroup.setAttribute("class", CLASSNAMES.NAV);
-    wrapper.appendChild(tabgroup);
+    leftGroup.appendChild(tabgroup);
 
     const tabContainer = document.createElement("div");
     tabContainer.setAttribute("class", CLASSNAMES.TABS);

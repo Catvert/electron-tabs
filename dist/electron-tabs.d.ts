@@ -7,6 +7,7 @@ interface TabGroupOptions {
     sortable: boolean;
     sortableOptions?: Sortable.Options;
     visibilityThreshold: number;
+    selectOptions: any;
 }
 interface TabOptions {
     active?: boolean;
