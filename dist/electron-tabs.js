@@ -2585,14 +2585,14 @@ class $eda442ba39f881a8$var$TabGroup extends HTMLElement {
         leftButtonContainer.setAttribute("class", $eda442ba39f881a8$var$CLASSNAMES.BUTTONS);
         leftGroup.appendChild(leftButtonContainer);
         const previousButton = leftButtonContainer.appendChild(document.createElement("button"));
-        previousButton.innerHTML = "&#8701;";
+        previousButton.innerHTML = "&#8672;";
         previousButton.addEventListener("click", ()=>{
             const activeTab = this.getActiveTab();
             if (activeTab) activeTab.webview.goBack();
         }, false);
         const nextButton = leftButtonContainer.appendChild(document.createElement("button"));
         nextButton.setAttribute("class", $eda442ba39f881a8$var$CLASSNAMES.BUTTONS);
-        nextButton.innerHTML = "&#8702;";
+        nextButton.innerHTML = "&#8674;";
         nextButton.addEventListener("click", ()=>{
             const activeTab = this.getActiveTab();
             if (activeTab) activeTab.webview.goForward();

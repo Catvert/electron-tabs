@@ -140,7 +140,7 @@ class TabGroup extends HTMLElement {
     leftGroup.appendChild(leftButtonContainer);
 
     const previousButton = leftButtonContainer.appendChild(document.createElement("button"));
-    previousButton.innerHTML = "&#8701;";
+    previousButton.innerHTML = "&#8672;";
     previousButton.addEventListener("click", () => {
       const activeTab = this.getActiveTab();
       if (activeTab) {
@@ -150,7 +150,7 @@ class TabGroup extends HTMLElement {
 
     const nextButton = leftButtonContainer.appendChild(document.createElement("button"));
     nextButton.setAttribute("class", CLASSNAMES.BUTTONS);
-    nextButton.innerHTML = "&#8702;";
+    nextButton.innerHTML = "&#8674;";
     nextButton.addEventListener("click", () => {
       const activeTab = this.getActiveTab();
       if (activeTab) {
