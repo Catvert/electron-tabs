@@ -140,7 +140,7 @@ class TabGroup extends HTMLElement {
     leftGroup.appendChild(leftButtonContainer);
 
     const previousButton = leftButtonContainer.appendChild(document.createElement("button"));
-    previousButton.innerHTML = "&#8672;";
+    previousButton.innerHTML = "&#8617;";
     previousButton.addEventListener("click", () => {
       const activeTab = this.getActiveTab();
       if (activeTab) {
@@ -150,7 +150,7 @@ class TabGroup extends HTMLElement {
 
     const nextButton = leftButtonContainer.appendChild(document.createElement("button"));
     nextButton.setAttribute("class", CLASSNAMES.BUTTONS);
-    nextButton.innerHTML = "&#8674;";
+    nextButton.innerHTML = "&#8618;";
     nextButton.addEventListener("click", () => {
       const activeTab = this.getActiveTab();
       if (activeTab) {
@@ -170,6 +170,29 @@ class TabGroup extends HTMLElement {
     const rightGroup = document.createElement("div");
     rightGroup.setAttribute("class", CLASSNAMES.RIGHTGROUP);
     header.appendChild(rightGroup);
+
+    const unzoomButton = rightGroup.appendChild(document.createElement("button"));
+    unzoomButton.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10h6m2 5l6 6m-11-4a7 7 0 1 1 0-14a7 7 0 0 1 0 14"/></svg>
+    `;
+    unzoomButton.addEventListener("click", () => {
+      const activeTab = this.getActiveTab();
+      if (activeTab) {
+        activeTab.webview.setZoomLevel(activeTab.webview.getZoomLevel() - 0.1);
+      }
+    }, false);
+
+    const zoomButton = rightGroup.appendChild(document.createElement("button"));
+    zoomButton.setAttribute("class", CLASSNAMES.BUTTONS);
+    zoomButton.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 10h3m0 0h3m-3 0V7m0 3v3m5 2l6 6m-11-4a7 7 0 1 1 0-14a7 7 0 0 1 0 14"/></svg>
+    `;
+    zoomButton.addEventListener("click", () => {
+      const activeTab = this.getActiveTab();
+      if (activeTab) {
+        activeTab.webview.setZoomLevel(activeTab.webview.getZoomLevel() + 0.1);
+      }
+    }, false);
 
     const selectContainer = document.createElement("div");
     selectContainer.setAttribute("class", CLASSNAMES.SELECT);
